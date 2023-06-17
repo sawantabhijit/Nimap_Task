@@ -1,0 +1,48 @@
+﻿@model IEnumerable<Nimap_Task.Models.CategoryModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-success">@Html.ActionLink("Create New", "Create") </button> &nbsp; &nbsp;
+    <button class="btn btn bg-info"> @Html.ActionLink("Go To Product List", "Index", "Product")</button>
+
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <button class="btn btn-success"> @Html.ActionLink("Edit", "Edit", new { id = item.CategoryId }) </button> |
+                <button class="btn btn-light"> @Html.ActionLink("Details", "Details", new { id = item.CategoryId }) </button> |
+                <button class="btn btn-danger"> @Html.ActionLink("Delete", "Delete", new { id = item.CategoryId }) </button>
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+@if (TempData["SuccessMessage"] != null)
+{
+    <h2 style="color:green">@TempData["SuccessMessage"]</h2>
+}
+

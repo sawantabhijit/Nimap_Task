@@ -1,0 +1,89 @@
+﻿@model IEnumerable<Nimap_Task.Models.ProductModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Product List</h1>
+<h2>Index</h2>
+
+<p>
+    <button class="btn btn-success"> @Html.ActionLink("Create New Product", "Create") </button> &nbsp; &nbsp;
+    <button class="btn btn-info">  @Html.ActionLink("Create New Category", "Create", "Category") </button>
+
+</p>
+<table class="table" cellpadding="0" cellspacing="0">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CategoryName)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                <button class="btn btn-success"> @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) </button> |
+                <button class="btn btn-Light"> @Html.ActionLink("Details", "Details", new { id = item.ProductId }) </button> |
+                <button class="btn btn-danger"> @Html.ActionLink("Delete", "Delete", new { id = item.ProductId }) </button>
+            </td>
+        </tr>
+    }
+</table>
+
+
+<!-- Display pagination links -->
+<div>
+    @if (ViewBag.CurrentPage > 1)
+    {
+        <button class="btn btn-secondary"> <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage - 1 })">Previous</a> </button>
+    }
+
+    @for (int i = 1; i <= ViewBag.TotalPages; i++)
+    {
+        if (i == ViewBag.CurrentPage)
+        {
+            <span>@i</span>
+        }
+        else
+        {
+            <a href="@Url.Action("Index", new { page = i })">@i</a>
+        }
+    }
+
+    @if (ViewBag.CurrentPage < ViewBag.TotalPages)
+    {
+        <button class="btn btn-secondary"> <a href="@Url.Action("Index", new { page = ViewBag.CurrentPage + 1 })">Next</a>   </button>
+    }
+</div> <br />
+@if (TempData["SuccessMessage"] != null)
+{
+    <h2 style="color:green">@TempData["SuccessMessage"]</h2>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
